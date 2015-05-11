@@ -1,0 +1,2 @@
+﻿
+http://www.dotnet-tricks.com/Tutorial/mvc/F16Q301112-Server-Side-Model-Validation-in-MVC-Razor.html

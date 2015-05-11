@@ -1,0 +1,93 @@
+﻿@model Mvc4_Model_ServerSideValidation.Models.RegistrationModel
+@{
+    ViewBag.Title = "Explicit Server Side Validation";
+}
+<script src="../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script type="text/jscript">
+    $(function () {
+
+        $('#Country_ID').change(function () {
+           //   debugger;
+            var id = $("#Country_ID :selected").val();
+            if (id != "") {
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("CityList", "Home")',
+                    data: { "mCountry": id },
+                    dataType: "json",
+                    success: function (data) {
+
+                        var items = "";
+                        $.each(data, function (i, city) {
+                            items += "<option value='" + city.Value + "'>" + city.Text + "</option>";
+
+                        });
+                        $('#City_ID').html(items);
+
+                    },
+                    error: function (result) {
+
+                        alert('Service call failed: ' + result.status + ' Type :' + result.statusText);
+                    }
+                });
+            }
+            else {
+                var items = '<option value="">Select</option>';
+                $('#City_ID').html(items);
+            }
+        });
+
+    });
+
+</script>
+<h2>
+    Explicit Server Side Validation</h2>
+@using (Html.BeginForm())
+{
+   <fieldset>
+       
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName, new { maxlength = 50 })
+                @Html.ValidationMessageFor(m => m.UserName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password, new { maxlength = 50, value = ViewBag.Selpwd })
+                @Html.ValidationMessageFor(m => m.Password)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.ConfirmPassword)
+                @Html.PasswordFor(m => m.ConfirmPassword, new { maxlength = 50, value = ViewBag.Selconfirmpwd })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Country)
+                @Html.DropDownListFor(m => m.Country.ID, new SelectList(ViewBag.Country, "ID", "Name"), new { style = "width:310px"})
+                @Html.ValidationMessageFor(m => m.Country)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.City)
+                @Html.DropDownListFor(m => m.City.ID, new SelectList(ViewBag.City, "ID", "Name"), new { style = "width:310px" })
+                @Html.ValidationMessageFor(m => m.City)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Address)
+                @Html.TextAreaFor(m => m.Address, new { maxlength = 200 })
+                @Html.ValidationMessageFor(m => m.Address)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.MobileNo)
+                @Html.TextBoxFor(m => m.MobileNo, new { maxlength = 10 })
+                @Html.ValidationMessageFor(m => m.MobileNo)
+            </li>
+            <li>
+                @Html.CheckBoxFor(m => m.TermsAccepted) I accept the terms & conditions
+                @Html.ValidationMessageFor(m => m.TermsAccepted)
+            </li>
+        </ol>
+        <input type="submit" value="Submit" />
+    </fieldset>
+}

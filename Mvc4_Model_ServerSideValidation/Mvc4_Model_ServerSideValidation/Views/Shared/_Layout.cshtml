@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - ASP.NET MVC4 Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <header>
+            <div class="content-wrapper">
+                <div>
+                    <p class="site-title">@Html.ActionLink("MVC4 Server Side Model Validation", "Demo", "Home")</p><br />
+                </div>
+                <div style=" clear:both">
+                   
+                    <nav>
+                        <ul id="menu">
+                            <li>@Html.ActionLink("Explicit-Server-Side", "ExplicitServer", "Home")</li>
+                            <li>@Html.ActionLink("Data Annotations-Server-Side", "ServerMeta", "Home")</li>
+                           </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+    <div id="body">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+    </div>
+    <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC4 Application</p>
+                </div>
+            </div>
+        </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
