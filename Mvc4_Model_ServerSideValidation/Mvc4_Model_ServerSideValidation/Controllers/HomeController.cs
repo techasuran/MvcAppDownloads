@@ -120,7 +120,7 @@ namespace Mvc4_Model_ServerSideValidation.Controllers
         #endregion
 
         //for client side using jquery 
-        //jQuery Library is used here
+        //jQuery Library 
         public JsonResult CityList(int mCountry)
         {
             try
